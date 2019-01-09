@@ -7,9 +7,14 @@ class User:
             self.valid = False
         else:
             self.valid = True
-            self.userid = foundUser.userinfo[0]
-            self.username = foundUser.userinfo[1]
-            self.token = foundUser.token
-            self.timeout = datetime.datetime.strptime(foundUser.time) + datetime.timedelta(days=1)
+            self.userid = foundUser["userinfo"]["userid"]
+            self.username = foundUser["username"]
+            self.token = foundUser["token"]
+            self.timeout = datetime.datetime.strptime(foundUser["time"]) + datetime.timedelta(days=1)
+            self.groups = database.getUserGroups(self.userid)
+        pass
+
+    def getGroups(self):
+        return self.groups
 
     pass
